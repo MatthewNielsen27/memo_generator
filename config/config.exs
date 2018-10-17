@@ -10,8 +10,6 @@ use Mix.Config
 
 # You can configure your application as:
 #
-config :memo_generator, api_key: System.get_env("TRELLO_API_KEY")
-config :memo_generator, api_token: System.get_env("TRELLO_API_TOKEN")
 
 # and access this configuration in your application as:
 #
@@ -21,6 +19,8 @@ config :memo_generator, api_token: System.get_env("TRELLO_API_TOKEN")
 #
 #     config :logger, level: :info
 #
+
+config :tesla, adapter: Tesla.Mock
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment

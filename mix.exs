@@ -11,7 +11,7 @@ defmodule MemoGenerator.MixProject do
       package: package(),
       description: description(),
       source_url: "https://github.com/azohra/memo_generator",
-      test_coverage: [tool: ExCoveralls],
+      test_coverage: [tool: ExCoveralls]
     ]
   end
 
