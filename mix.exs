@@ -36,7 +36,8 @@ defmodule MemoGenerator.MixProject do
       {:poison, "~> 3.0"},
       {:excoveralls, "~> 0.10.1"},
       {:tesla, "~> 1.1"},
-      {:timex, "~> 3.0"}
+      {:timex, "~> 3.0"},
+      {:credo, "~> 0.10.2"}
     ]
   end
 

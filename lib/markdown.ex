@@ -41,7 +41,7 @@ defmodule MemoGenerator.Markdown do
   @doc """
   Linebreak
   """
-  def linebreak() do
+  def linebreak do
     "---"
   end
 

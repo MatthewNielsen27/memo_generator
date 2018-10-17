@@ -5,13 +5,13 @@ defmodule MemoGenerator.Clients.Jira do
 
   use Tesla
 
-  def get_board_data(id, order) do
+  def get_board_data(id, order, exclude \\ []) do
     board_overview = get_board(id)
 
     %{
       "name" => board_overview["name"],
       "type" => board_overview["type"],
-      "issues" => get_board_issues(id) |> sort_by(order)
+      "issues" => id |> get_board_issues |> sort_by(order) |> filter_by(exclude)
     }
   end
 
@@ -41,6 +41,10 @@ defmodule MemoGenerator.Clients.Jira do
     |> Enum.reduce(%{}, fn acc, map -> Map.merge(acc, map) end)
   end
 
+  def filter_by(field, mode) do
+    Map.drop(field, mode)
+  end
+
   defp parse_fields(issue_list) do
     issue_list
     |> Enum.map(fn issue -> take_params(issue) end)
@@ -65,14 +69,34 @@ defmodule MemoGenerator.Clients.Jira do
       "creator_email" => inner["creator"]["emailAddress"],
       "status" => inner["status"]["name"],
       "id" => issue["key"],
-      "desc" => String.replace(inner["description"], "\n", " "),
+      "desc" => clean(inner["description"]),
       "project" => inner["project"]["name"],
       "priority" => inner["priority"]["name"],
       "comments" => parse_comments(inner["comment"]["comments"]),
-      "summary" => String.replace(inner["summary"], "\n", " "),
+      "summary" => clean(inner["summary"]),
       "created_at" => parse_date(inner["created"]),
       "last_update" => parse_date(inner["updated"])
     }
+  end
+
+  def clean(string) do
+    if string !== nil do
+      string
+      |> String.replace("{code:java}", "```java\n")
+      |> String.replace("{code:html}", "```html\n")
+      |> String.replace("{code:java}", "```java\n")
+      |> String.replace("{code:javasript}", "```javascript\n")
+      |> String.replace("{code:elixir}", "```elixir\n")
+      |> String.replace("{code:console}", "```console\n")
+      |> String.replace("{code:python}", "```python\n")
+      |> String.replace("{code}", "```")
+      |> String.replace("h4.", "#### ")
+      |> String.replace("h3.", "### ")
+      |> String.replace("h2.", "## ")
+      |> String.replace("h1.", "# ")
+    else
+      ""
+    end
   end
 
   defp parse_comments(comments) do
@@ -85,7 +109,7 @@ defmodule MemoGenerator.Clients.Jira do
       "displayName" => comment["author"]["displayName"],
       "emailAddress" => comment["author"]["emailAddress"],
       "avatar" => comment["author"]["avatarUrls"]["48x48"],
-      "body" => String.replace(comment["body"], "\n", " "),
+      "body" => clean(comment["body"]),
       "created" => comment["created"],
       "updated" => comment["updated"]
     }

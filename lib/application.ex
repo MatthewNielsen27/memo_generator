@@ -3,9 +3,10 @@ defmodule MemoGenerator.Application do
   Module for application
   """
   use Application
+  alias MemoGenerator.Clients.Setup
 
   def start(_type, args) do
-    children = MemoGenerator.Clients.Setup.start(args)
+    children = Setup.start(args)
 
     Supervisor.start_link(children, strategy: :one_for_one)
   end

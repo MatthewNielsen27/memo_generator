@@ -7,7 +7,7 @@ defmodule MemoGenerator.Clients.JiraTest do
       %{
         "avatar" => "https://jira.lblw.cloud/secure/useravatar?ownerId=yuxuan.hu&avatarId=25419",
         "body" =>
-          "I believe is the query that jeanie use is outdated.  Need to confirm the query in the request      ",
+          "I believe is the query that jeanie use is outdated. Need to confirm the query in the request",
         "created" => "2018-09-14T15:06:24.319-0400",
         "displayName" => "Kevin",
         "emailAddress" => "kevin@example.ca",
@@ -43,7 +43,7 @@ defmodule MemoGenerator.Clients.JiraTest do
               }
             },
             "body" =>
-              "I believe is the query that jeanie use is outdated.\n\nNeed to confirm the query in the request\n\n \n\n ",
+              "I believe is the query that jeanie use is outdated. Need to confirm the query in the request",
             "created" => "2018-09-14T15:06:24.319-0400",
             "updated" => "2018-09-14T15:15:58.822-0400"
           }
