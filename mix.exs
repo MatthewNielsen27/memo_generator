@@ -10,7 +10,8 @@ defmodule MemoGenerator.MixProject do
       deps: deps(),
       package: package(),
       description: description(),
-      source_url: "https://github.com/azohra/memo_generator"
+      source_url: "https://github.com/azohra/memo_generator",
+      test_coverage: [tool: ExCoveralls],
     ]
   end
 
@@ -18,7 +19,8 @@ defmodule MemoGenerator.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      applications: [:httpoison]
+      applications: [:httpoison],
+      applications: [:timex]
     ]
   end
 
@@ -31,7 +33,10 @@ defmodule MemoGenerator.MixProject do
     [
       {:ex_doc, ">= 0.0.0", only: :dev},
       {:httpoison, "~> 1.3"},
-      {:poison, "~> 3.0"}
+      {:poison, "~> 3.0"},
+      {:excoveralls, "~> 0.10.1"},
+      {:tesla, "~> 1.1"},
+      {:timex, "~> 3.0"}
     ]
   end
 
